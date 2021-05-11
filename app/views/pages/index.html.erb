@@ -1,2 +1,11 @@
 <h1>Pages#index</h1>
 <p>Find me in app/views/pages/index.html.erb</p>
+<% @json['items'].each do |hash| %>
+    <div class="items">
+    <h2><%= hash['name'] %></h2>
+    <%= image_tag(hash['icon_large']) %>
+    <div class="item-description"><p><%= hash['description'] %></p></div>
+    <%= link_to 'Show me more!', show_path(hash['id']) %>
+    <%# @details = JSON.parse(HTTParty.get('https://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + hash['id'].to_s).parsed_response) %>
+    </div>
+<% end %>

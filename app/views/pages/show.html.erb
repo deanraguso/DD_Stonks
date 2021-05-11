@@ -1,2 +1,26 @@
-<h1>Pages#show</h1>
-<p>Find me in app/views/pages/show.html.erb</p>
+<div class="items">
+    <h2><%= @json['item']['name'] %></h2>
+    <%= image_tag(@json['item']['icon_large']) %>
+    <div class="item-description"><p><%= @json['item']['description'] %></p></div>
+    </div>
+    <div class="stock-details">
+        <div class="current">
+            <%= @json['item']['current'] %>
+        </div>
+        <div class="today">
+        <%= @json['item']['today'] %>
+        </div>
+        <div class="day30">
+        <%= @json['item']['day30'] %>
+        </div>
+        <div class="day90">
+        <%= @json['item']['day90'] %>
+        </div>
+        <div class="day180">
+        <%= @json['item']['day180'] %>
+        </div>
+    </div>
+
+    <%=line_chart @data, width: '500px', height: '500px'%>
+    
+</div>
