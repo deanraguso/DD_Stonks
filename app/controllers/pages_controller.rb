@@ -51,7 +51,7 @@ class PagesController < ApplicationController
   def percent_string_to_change(ps, price)
     ps.slice!('%')
     ps.slice!('+')
-    fraction_change = ps.to_f/100;
+    fraction_change = -ps.to_f/100;
 
     return (1 - fraction_change)*price
   end
