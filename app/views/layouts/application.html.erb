@@ -11,9 +11,10 @@
   </head>
 
   <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-    <%= render "/shared/nav_bar" %>
-    <%= yield %>
-  </body>
+  <div class="container-fluid">
+    <p class="notice"><%= notice %></p>
+      <%= render "/shared/nav_bar" %>
+      <%= yield %>
+    </body>
+  </div>
 </html>
