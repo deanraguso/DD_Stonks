@@ -1,24 +1,25 @@
 class FavoritesController < ApplicationController
+    before_action :signed_id_redirect
 
     def show
-
     end
 
     def add
-
     end
 
     def delete
-
     end
 
     def erase
-
     end
 
-    private 
+    private
 
-    def user
-        user = User.find_by(id: params.require(:id))
+    def signed_id_redirect
+        if user_signed_in?
+            @user = current_user
+        else    
+            redirect_to new_user_session_path
+        end
     end
 end
