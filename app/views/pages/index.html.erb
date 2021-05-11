@@ -1,11 +1,29 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
-<% @json['items'].each do |hash| %>
-    <div class="items">
-    <h2><%= hash['name'] %></h2>
-    <%= image_tag(hash['icon_large']) %>
-    <div class="item-description"><p><%= hash['description'] %></p></div>
-    <%= link_to 'Show me more!', show_path(hash['id']) %>
-    <%# @details = JSON.parse(HTTParty.get('https://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + hash['id'].to_s).parsed_response) %>
-    </div>
+<h1>Search Items</h1>
+<p>Please enter a Runescape GE Traded Item</p>
+
+<% query = "" %>
+<%= form_with url: root_path(query), method: :get do |form| %>
+        <%= form.label :item %>
+        <%= form.text_field :item %>
+        <%= form.label :category %>
+        <%= form.select :category, ["All"] + Constants::CATEGORIES %>
+        <%= form.submit "Search" %>
 <% end %>
+
+<% if false %>
+
+        <% if @results %>
+    
+        <% end %>
+
+    <% @json['items'].each do |hash| %>
+        <div class="items">
+        <h2><%= hash['name'] %></h2>
+        <%= image_tag(hash['icon_large']) %>
+        <div class="item-description"><p><%= hash['description'] %></p></div>
+        <%= link_to 'Show me more!', show_path(hash['id']) %>
+        <%# @details = JSON.parse(HTTParty.get('https://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + hash['id'].to_s).parsed_response) %>
+        </div>
+    <% end %>
+
+<%end%>

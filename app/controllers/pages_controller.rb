@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
-  
-  before_action :setup
+  before_action :setup, only: :index
 
   def index
 
@@ -46,9 +45,16 @@ class PagesController < ApplicationController
   private
 
   def setup
-    @web = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1')
-    @json = @web.parsed_response
-    @json = JSON.parse(@json)
+  #   @web = [] 
+  #   # GE_CATEGORIES.times.with_index do |index|
+  #   1.times.with_index do |index|
+  #     @web[index] = HTTParty.get("https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1")
+  #   end
+
+  #   p @web[0].parsed_response
+
+  #   @json = @web[0].parsed_response
+  #   @json = JSON.parse(@json)
   end
 
 end
