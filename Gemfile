@@ -60,3 +60,4 @@ gem "httparty", "~> 0.18.1"
 gem "chart", "~> 0.1.5"
 
 gem "chartkick", "~> 4.0"
+gem "devise", "~> 4.8"
