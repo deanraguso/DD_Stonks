@@ -1,7 +1,7 @@
 <main class="content">
 <div class="items">
     <h2><%= @json['item']['name'] %></h2>
-    <%= image_tag(@json['item']['icon_large'], :class => 'icon')%>
+    <%= image_tag(@json['item']['icon_large']) %>
     <% if user_signed_in? %>
         <%= link_to "Add to Favorites", favorites_add_path(favorites: [@json["item"].to_json]), method: :post%>
     <% end %>
@@ -18,7 +18,7 @@
     </div>
     <div class="today">
         <h3>Today</h3>
-        <p>Trend: <%= @json['item']['today']['trend'] %> | Change: <%= @json['item']['today']['price'] %> </p>
+        <p>Trend: <%= @json['item']['today']['trend'] %> | Change: <%= @json['item']['today']['price'] %>g</p>
     </div>
     <div class="day30">
         <h3>30 Day Trend</h3>
@@ -34,9 +34,7 @@
     </div>
 </div>
 
-<div class="graph">
     <%=line_chart @data, width: '500px', height: '500px'%>
-</div>
     
 </div>
 </main>
