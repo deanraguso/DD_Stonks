@@ -1,13 +1,17 @@
 <nav>
-    <%= image_tag "logo.png" %>
-    <%= link_to "Home", root_path %>
-    <%= link_to "About", about_path %>
+<div class="navigation">
+    <%= image_tag "logo.png", :class => 'logo'%>
+    <%= link_to "Home", root_path, :class =>  "btn btn-info"%>
+    <%= link_to "About", about_path, :class =>  "btn btn-info" %>
+</div>
+<div class="user_nav">
     <% if user_signed_in? %>
-        <%= current_user.email %>
-        <%= link_to "Favorites", favorites_show_path %>
-        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        <p id="username"><%= current_user.email %></p>
+        <%= link_to "Favorites", favorites_show_path, :id => 'favourites', :class => "btn btn-primary"%>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => "btn btn-danger" %>
     <% else %>
-        <%= link_to "Sign In", new_user_session_path %>
-        <%= link_to "Create Account", new_user_registration_path %>
+        <%= link_to "Sign In", new_user_session_path, :class => "btn btn-success"%>
+        <%= link_to "Create Account", new_user_registration_path, :class => "btn btn-primary" %>
     <% end %>
+</div>
 </nav>
