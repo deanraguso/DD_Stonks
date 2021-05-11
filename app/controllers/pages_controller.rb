@@ -20,33 +20,30 @@ class PagesController < ApplicationController
   # repeating this for 30 90 and 180 days to get what the price should have been at that time
   # using the percentage change and the current price
   @price = @json['item']['current']['price']
-  puts 'price before is: ' + @price
+  # puts 'price before is: ' + @price
   if(@price[-1] == 'm')
-    @price = @price.to_f * 1000000
+    @price = @price.to_f * 1_000_000
   elsif (@price[-1] == 'k')
-    @price = @price.to_f * 1000
+    @price = @price.to_f * 1_000
   end
 
-  puts 'price is ' + @price.to_s
+  # puts 'price is ' + @price.to_s
 
-  @day180P = @json['item']['day180']['change']
-  @day180P.slice!('%')
-  @day180P.slice!('+')
-  @day180P = 100 * (@price / (100 - -@day180P.to_f))
-  puts @day180P
 
-  @day90P = @json['item']['day90']['change']
-  @day90P.slice!('%')
-  @day90P.slice!('+')
-  @day90P = 100 * (@price / (100 - -@day90P.to_f))
-  puts @day90P
+  @day180P = percent_string_to_change(
+                                      @json['item']['day180']['change'], 
+                                      @price
+                                      )
 
-  
-  @day30P = @json['item']['day30']['change']
-  @day30P.slice!('%')
-  @day30P.slice!('+')
-  @day30P = 100 * (@price / (100 - -@day30P.to_f))
-  puts @day30P
+  @day90P = percent_string_to_change(
+                                      @json['item']['day90']['change'], 
+                                      @price
+                                      )         
+                                      
+  @day30P = percent_string_to_change(
+                                      @json['item']['day30']['change'], 
+                                      @price
+                                      )                                   
 
   @data = {
     'day180': @day180P, 
@@ -62,6 +59,13 @@ class PagesController < ApplicationController
 
 
   private
+  def percent_string_to_change(ps, price)
+    ps.slice!('%')
+    ps.slice!('+')
+    fraction_change = ps.to_f/100;
+
+    return (1 + fraction_change)*price
+  end
 
   def search_results
     # Is a search needed?
