@@ -21,6 +21,9 @@
             <%= image_tag(item['icon_large']) %>
             <div class="item-description"><p><%= item['description'] %></p></div>
             <%= link_to 'Show me more!', show_path(item['id']) %>
+            <% if user_signed_in? %>
+                <%= link_to "Add to Favorites", favorites_add_path(favorites: [item.to_json]), method: :post%>
+            <% end %>
         </div>
     <% end %>
 
