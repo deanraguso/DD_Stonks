@@ -5,6 +5,12 @@ class FavoritesController < ApplicationController
     end
 
     def add
+        p params[:favorites]
+        current_user.update(
+            favorites: current_user.favorites +
+            params[:favorites]
+        )
+        redirect_back(fallback_location: root_path) 
     end
 
     def delete

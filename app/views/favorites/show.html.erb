@@ -1,1 +1,4 @@
 <%= @user.favorites %>
+<br>
+<br>
+<%= link_to "add_favorites", favorites_add_path(favorites: ["hello"]), method: :post%>
