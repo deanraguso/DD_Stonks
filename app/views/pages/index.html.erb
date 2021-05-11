@@ -1,14 +1,31 @@
 <h1>Search Items</h1>
 <p>Please enter a Runescape GE Traded Item</p>
 
-<% query = "" %>
-<%= form_with url: root_path(query), method: :get do |form| %>
+<%= form_with url: root_path, method: :get do |form| %>
         <%= form.label :item %>
         <%= form.text_field :item %>
         <%= form.label :category %>
-        <%= form.select :category, ["All"] + Constants::CATEGORIES %>
+        <%= form.select :category, Constants::CATEGORIES %>
         <%= form.submit "Search" %>
 <% end %>
+
+<br><br>
+
+
+<% if @results && @results != [] %>
+    <h2>Results for "<%= params[:item] %>":</h2>
+    <br>
+
+    <% @results.each do |item| %>
+        <%= item %>
+    <% end %>
+
+<% else %>
+    <h2>No Results!</h2>
+<% end %>
+
+
+
 
 <% if false %>
 
