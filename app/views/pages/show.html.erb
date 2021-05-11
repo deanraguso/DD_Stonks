@@ -1,7 +1,7 @@
 <main class="content">
 <div class="items">
     <h2><%= @json['item']['name'] %></h2>
-    <%= image_tag(@json['item']['icon_large']) %>
+    <%= image_tag(@json['item']['icon_large'], :class => 'icon')%>
     <div class="item-description">
     <p><%= @json['item']['description'] %></p>
     </div>
@@ -31,7 +31,9 @@
     </div>
 </div>
 
+<div class="graph">
     <%=line_chart @data, width: '500px', height: '500px'%>
+</div>
     
 </div>
 </main>
