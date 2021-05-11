@@ -2,4 +2,5 @@
 <br>
 <br>
 <%= link_to "add_favorites", favorites_add_path(favorites: ["hello"]), method: :post%>
-<%= link_to "delete_favorites", favorites_erase_path, method: :delete%>
+<%= link_to "delete_favorites", favorites_delete_path(favorites: ["hello"]), method: :put%>
+<%= link_to "erase_favorites", favorites_erase_path, method: :delete%>
