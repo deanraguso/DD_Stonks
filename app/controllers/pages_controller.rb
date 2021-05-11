@@ -2,12 +2,6 @@ class PagesController < ApplicationController
   
   before_action :setup
 
-  def setup
-  @web = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1')
-  @json = @web.parsed_response
-  @json = JSON.parse(@json)
-  end
-
   def index
 
   end
@@ -48,4 +42,13 @@ class PagesController < ApplicationController
 
   def about
   end
+
+  private
+
+  def setup
+    @web = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1')
+    @json = @web.parsed_response
+    @json = JSON.parse(@json)
+  end
+
 end
