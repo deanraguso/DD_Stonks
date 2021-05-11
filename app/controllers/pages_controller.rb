@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  before_action :setup, only: :index
 
   def index
     response = params.has_key?(:item) ? search_results : nil
@@ -72,18 +71,5 @@ class PagesController < ApplicationController
         return HTTParty.get("https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=#{category}&alpha=#{first_letter}&page=1")
     end
     return nil
-  end
-
-  def setup
-  #   @web = [] 
-  #   # GE_CATEGORIES.times.with_index do |index|
-  #   1.times.with_index do |index|
-  #     @web[index] = HTTParty.get("https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1")
-  #   end
-
-  #   p @web[0].parsed_response
-
-  #   @json = @web[0].parsed_response
-  #   @json = JSON.parse(@json)
   end
 end
