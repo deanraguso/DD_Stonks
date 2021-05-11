@@ -1,10 +1,25 @@
+<% if @results && @results != [] %>
+    <h2>Favorites</h2>
 
+    <% @results.each do |item| %>
+        <% item = JSON.parse(item) %>
+        <div class="items">
+            <h3><%= item['name'] %></h3>
+            <%= image_tag(item['icon_large']) %>
+            <div class="item-description"><p><%= item['description'] %></p></div>
+            <%= link_to 'Show me more!', show_path(item['id']) %>
+            <% if user_signed_in? %>
+                <%= link_to "Remove from Favorites", favorites_delete_path(favorites: [item.to_json]), method: :put %>
+            <% end %>
+        </div>
+    <% end %>
 
-<%= @user.favorites %>
-<br>
-<br>
-<%= link_to "add_favorites", favorites_add_path(favorites: ["hello"]), method: :post%>
-<br>
-<%= link_to "delete_favorites", favorites_delete_path(favorites: ["hello"]), method: :put%>
-<br>
-<%= link_to "erase_favorites", favorites_erase_path, method: :delete%>
+<% else %>
+    <h2>No Results!</h2>
+<% end %>
+
+<% if @results.length > 0%>
+    <br>
+    <strong>Warning: The following will remove all favorites!</strong><br>
+    <%= link_to "REMOVE ALL FAVORITES", favorites_erase_path, method: :delete%>
+<% end %>

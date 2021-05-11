@@ -2,6 +2,9 @@
 <div class="items">
     <h2><%= @json['item']['name'] %></h2>
     <%= image_tag(@json['item']['icon_large'], :class => 'icon')%>
+    <% if user_signed_in? %>
+        <%= link_to "Add to Favorites", favorites_add_path(favorites: [@json["item"].to_json]), method: :post%>
+    <% end %>
     <div class="item-description">
     <p><%= @json['item']['description'] %></p>
     </div>
