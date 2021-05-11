@@ -1,0 +1,10 @@
+
+
+<%= @user.favorites %>
+<br>
+<br>
+<%= link_to "add_favorites", favorites_add_path(favorites: ["hello"]), method: :post%>
+<br>
+<%= link_to "delete_favorites", favorites_delete_path(favorites: ["hello"]), method: :put%>
+<br>
+<%= link_to "erase_favorites", favorites_erase_path, method: :delete%>
