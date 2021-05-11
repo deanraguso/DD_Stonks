@@ -1,3 +1,4 @@
+require 'json'
 class FavoritesController < ApplicationController
     before_action :signed_id_redirect
 
