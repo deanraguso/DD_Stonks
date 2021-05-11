@@ -11,47 +11,36 @@ class PagesController < ApplicationController
   end
 
   def show
-  @item_id = params['format']
-  @web = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + @item_id.to_s)
-  @json = @web.parsed_response
-  @json = JSON.parse(@json)
+    @item_id = params['format']
+    response = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + @item_id.to_s)
+    @json = JSON.parse(response.parsed_response)
 
-  
-  # repeating this for 30 90 and 180 days to get what the price should have been at that time
-  # using the percentage change and the current price
-  @price = @json['item']['current']['price']
-  # puts 'price before is: ' + @price
-  if(@price[-1] == 'm')
-    @price = @price.to_f * 1_000_000
-  elsif (@price[-1] == 'k')
-    @price = @price.to_f * 1_000
-  end
-
-  # puts 'price is ' + @price.to_s
+    
+    # repeating this for 30 90 and 180 days to get what the price should have been at that time
+    # using the percentage change and the current price
+    @price = @json['item']['current']['price']
+    # puts 'price before is: ' + @price
+    if(@price[-1] == 'm')
+      @price = @price.to_f * 1_000_000
+    elsif (@price[-1] == 'k')
+      @price = @price.to_f * 1_000
+    end
 
 
-  @day180P = percent_string_to_change(
-                                      @json['item']['day180']['change'], 
-                                      @price
-                                      )
+    @day180P = percent_string_to_change(@json['item']['day180']['change'],
+      @price)
+    @day90P = percent_string_to_change(@json['item']['day90']['change'], 
+      @price)              
+    @day30P = percent_string_to_change(@json['item']['day30']['change'], 
+      @price)                                   
 
-  @day90P = percent_string_to_change(
-                                      @json['item']['day90']['change'], 
-                                      @price
-                                      )         
-                                      
-  @day30P = percent_string_to_change(
-                                      @json['item']['day30']['change'], 
-                                      @price
-                                      )                                   
-
-  @data = {
-    'day180': @day180P, 
-    'day90': @day90P, 
-    'day30': @day30P, 
-    'today': @price + @json['item']['today']['price'].to_f, 
-    'current': @price
-  }
+    @data = {
+      'day180': @day180P, 
+      'day90': @day90P, 
+      'day30': @day30P, 
+      'today': @price + @json['item']['today']['price'].to_f, 
+      'current': @price
+    }
   end
   
   def about
