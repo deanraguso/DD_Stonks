@@ -14,33 +14,16 @@
 
 <% if @results && @results != [] %>
     <h2>Results for "<%= params[:item] %>":</h2>
-    <br>
 
     <% @results.each do |item| %>
-        <%= item %>
+        <div class="items">
+            <h3><%= item['name'] %></h3>
+            <%= image_tag(item['icon_large']) %>
+            <div class="item-description"><p><%= item['description'] %></p></div>
+            <%= link_to 'Show me more!', show_path(item['id']) %>
+        </div>
     <% end %>
 
 <% else %>
     <h2>No Results!</h2>
 <% end %>
-
-
-
-
-<% if false %>
-
-        <% if @results %>
-    
-        <% end %>
-
-    <% @json['items'].each do |hash| %>
-        <div class="items">
-        <h2><%= hash['name'] %></h2>
-        <%= image_tag(hash['icon_large']) %>
-        <div class="item-description"><p><%= hash['description'] %></p></div>
-        <%= link_to 'Show me more!', show_path(hash['id']) %>
-        <%# @details = JSON.parse(HTTParty.get('https://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + hash['id'].to_s).parsed_response) %>
-        </div>
-    <% end %>
-
-<%end%>
