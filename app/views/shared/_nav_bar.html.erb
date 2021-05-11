@@ -1,4 +1,6 @@
 <nav>
+    <%= link_to "Home", root_path %>
+    <%= link_to "About", root_path %>
     <% if user_signed_in? %>
         <%= current_user.email %>
         <%= link_to "Favorites", favorites_show_path %>
