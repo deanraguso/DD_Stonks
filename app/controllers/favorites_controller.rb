@@ -3,6 +3,7 @@ class FavoritesController < ApplicationController
     before_action :signed_id_redirect
 
     def show
+        @results = current_user.favorites
     end
 
     def add
@@ -18,9 +19,11 @@ class FavoritesController < ApplicationController
 
     def delete
         current_user.update(
-            favorites: params[:favorites].delete(
-                current_user.favorites 
-            )
+            favorites: current_user.favorites.select! {
+            |fav| 
+                JSON.parse(fav)["name"] != 
+                JSON.parse(params[:favorites][0])["name"]
+            }
         )
         redirect_back(fallback_location: root_path) 
     end
