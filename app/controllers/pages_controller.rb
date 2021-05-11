@@ -1,15 +1,14 @@
 class PagesController < ApplicationController
-  
-  before_action :setup
-
-  def setup
-  @web = HTTParty.get('https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1')
-  @json = @web.parsed_response
-  @json = JSON.parse(@json)
-  end
+  before_action :setup, only: :index
 
   def index
-
+    response = params.has_key?(:item) ? search_results : nil
+    @results = response ? JSON.parse(response.parsed_response)["items"] : nil
+    if @results && params[:item]
+      @results.select! {|item| 
+        item["name"].downcase.include?(params[:item].downcase) 
+      } 
+    end
   end
 
   def show
@@ -61,5 +60,30 @@ class PagesController < ApplicationController
   
   def about
   end
-  
+
+
+  private
+
+  def search_results
+    # Is a search needed?
+    if params[:item].length > 0
+      first_letter = params[:item].length == 1 ? params[:item] : params[:item][0]
+      category = Constants::CATEGORIES.find_index(params[:category])
+        return HTTParty.get("https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=#{category}&alpha=#{first_letter}&page=1")
+    end
+    return nil
+  end
+
+  def setup
+  #   @web = [] 
+  #   # GE_CATEGORIES.times.with_index do |index|
+  #   1.times.with_index do |index|
+  #     @web[index] = HTTParty.get("https://secure.runescape.com/m=itemdb_rs/api/catalogue/items.json?category=18&alpha=a&page=1")
+  #   end
+
+  #   p @web[0].parsed_response
+
+  #   @json = @web[0].parsed_response
+  #   @json = JSON.parse(@json)
+  end
 end
