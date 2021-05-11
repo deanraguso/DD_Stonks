@@ -1,9 +1,3 @@
-
-<br>
-<%= link_to "delete_favorites", favorites_delete_path(favorites: ["hello"]), method: :put%>
-<br>
-<%= link_to "erase_favorites", favorites_erase_path, method: :delete%>
-
 <% if @results && @results != [] %>
     <h2>Favorites</h2>
 
@@ -22,4 +16,10 @@
 
 <% else %>
     <h2>No Results!</h2>
+<% end %>
+
+<% if @results.length > 0%>
+    <br>
+    <strong>Warning: The following will remove all favorites!</strong><br>
+    <%= link_to "REMOVE ALL FAVORITES", favorites_erase_path, method: :delete%>
 <% end %>
