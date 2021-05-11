@@ -58,6 +58,8 @@ class PagesController < ApplicationController
     'current': @price
   }
   end
+  
   def about
   end
+  
 end

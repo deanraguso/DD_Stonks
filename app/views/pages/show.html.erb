@@ -1,26 +1,37 @@
+<main class="content">
 <div class="items">
     <h2><%= @json['item']['name'] %></h2>
     <%= image_tag(@json['item']['icon_large']) %>
-    <div class="item-description"><p><%= @json['item']['description'] %></p></div>
+    <div class="item-description">
+    <p><%= @json['item']['description'] %></p>
     </div>
-    <div class="stock-details">
-        <div class="current">
-            <%= @json['item']['current'] %>
+</div>
+<div class="stock-details">
+    <div class="current">
+        <h3>Current</h3>
+        <div class="trend">
+            <p>Trend: <%= @json['item']['current']['trend'] %> | Current Price: <%=  @json['item']['current']['price'] %></p>
         </div>
-        <div class="today">
-        <%= @json['item']['today'] %>
-        </div>
-        <div class="day30">
-        <%= @json['item']['day30'] %>
-        </div>
+    </div>
+    <div class="today">
+        <h3>Today</h3>
+        <p>Trend: <%= @json['item']['today']['trend'] %> | Change: <%= @json['item']['today']['price'] %></p>
+    </div>
+    <div class="day30">
+        <h3>30 Day Trend</h3>
+        <p>Trend: <%= @json['item']['day30']['trend'] %> | Change: <%=  @json['item']['day30']['change']%>%</p>
+    </div>
         <div class="day90">
-        <%= @json['item']['day90'] %>
-        </div>
-        <div class="day180">
-        <%= @json['item']['day180'] %>
-        </div>
+        <h3>90 Day Trend</h3>
+        <p>Trend: <%= @json['item']['day90']['trend'] %> | Change: <%=  @json['item']['day90']['change']%>%</p>
     </div>
+        <div class="day180">
+        <h3>180 Day Trend</h3>
+        <p>Trend: <%= @json['item']['day180']['trend'] %> | Change: <%=  @json['item']['day180']['change']%>%</p>
+    </div>
+</div>
 
     <%=line_chart @data, width: '500px', height: '500px'%>
     
 </div>
+</main>
