@@ -53,7 +53,7 @@ class PagesController < ApplicationController
     ps.slice!('+')
     fraction_change = -ps.to_f/100;
 
-    return (1 - fraction_change)*price
+    return (1 + fraction_change)*price
   end
 
   def search_results
